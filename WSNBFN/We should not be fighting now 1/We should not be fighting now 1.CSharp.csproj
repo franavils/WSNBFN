@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\BreakBySuperShot.cs" />
     <Compile Include="Assets\Scripts\BreakableBrick.cs" />
     <Compile Include="Assets\Scripts\BulletScript.cs" />
     <Compile Include="Assets\Scripts\CollectEnergy.cs" />

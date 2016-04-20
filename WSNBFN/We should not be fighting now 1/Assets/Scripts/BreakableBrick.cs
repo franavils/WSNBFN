@@ -39,7 +39,7 @@ public class BreakableBrick : MonoBehaviour
     {
         Vector3 instantiateParticles = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
         Quaternion collectibleCurrentRotation = collectible.GetComponent<Transform>().rotation;
-        if (other.tag == "Bullet")
+        if (other.tag == "Bullet" || other.tag == "SuperShot")
         {
 
             //other.GetComponent<Animator>().SetTrigger("Enemy crashed");
