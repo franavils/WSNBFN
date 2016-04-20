@@ -19,7 +19,7 @@ public class BreakBySuperShot : MonoBehaviour {
 
     {
 
-        Debug.Log(other.name);
+        
         Vector3 instantiateParticles = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
         
         if (other.tag == "SuperShot")
