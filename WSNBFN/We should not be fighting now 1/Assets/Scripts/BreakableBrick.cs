@@ -44,7 +44,7 @@ public class BreakableBrick : MonoBehaviour
 
             //other.GetComponent<Animator>().SetTrigger("Enemy crashed");
             Destroy(gameObject);
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
             Instantiate(BreakableParticles, instantiateParticles , collectibleCurrentRotation);
 
             if (hasAPickUp)

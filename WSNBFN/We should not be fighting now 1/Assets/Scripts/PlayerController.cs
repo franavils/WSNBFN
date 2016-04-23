@@ -197,12 +197,13 @@ public class PlayerController : MonoBehaviour
                 canShoot = false;
                 Invoke("ResetShot", shootDelay);
             }
-            //SuperShot
+            //Super Shot
             if (canSuperShoot && Input.GetButton(rightShoulder))
             {
                 GameObject SuperShotClone = Instantiate(SuperShot, thisPlayer.transform.position, thisPlayer.transform.rotation) as GameObject;
                 canSuperShoot = false;
-                SuperShotClone.GetComponent<GiveDamage>().thisPlayer = thisPlayer;
+                //SuperShotClone.GetComponent<GiveDamage>().thisPlayer = thisPlayer;
+                SuperShot.GetComponentInChildren<GiveDamage>().thisPlayer = thisPlayer;
                 SuperShotClone.transform.rotation = gameObject.transform.rotation;
             }
 
