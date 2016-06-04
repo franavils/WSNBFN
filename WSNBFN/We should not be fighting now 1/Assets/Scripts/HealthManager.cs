@@ -113,7 +113,7 @@ public class HealthManager : MonoBehaviour {
     void screenShake()
     {
         //Debug.Log("Calling shake");
-        mainCamera.GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
+        //mainCamera.GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
         shaked = true;
         
 

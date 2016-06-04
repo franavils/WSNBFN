@@ -50,7 +50,12 @@ public class PlayerController : MonoBehaviour
 
     //Super Shot
     public GameObject SuperShot;
+    public GameObject SuperShotClone;
+
     public bool canSuperShoot;
+    public bool SuperShotOn;
+    public float SuperShotLifeTime;
+    public float SuperShotCurrentLifeTime;
 
     //Score
     public int playerScore = 0;
@@ -99,6 +104,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        //Destroy Super Shot
+        if (SuperShotOn)
+        {
+            SuperShotCurrentLifeTime += Time.deltaTime;
+            if (SuperShotCurrentLifeTime >= SuperShotLifeTime)
+            {
+                Destroy(SuperShotClone);
+                SuperShotOn = false;
+            }
+        }
+
         //Shield
         if (timeBeginReloadShield <= 0)
         {
@@ -198,13 +215,15 @@ public class PlayerController : MonoBehaviour
                 Invoke("ResetShot", shootDelay);
             }
             //Super Shot
+            
             if (canSuperShoot && Input.GetButton(rightShoulder))
             {
-                GameObject SuperShotClone = Instantiate(SuperShot, thisPlayer.transform.position, thisPlayer.transform.rotation) as GameObject;
+                SuperShotClone = Instantiate(SuperShot, thisPlayer.transform.position, thisPlayer.transform.rotation) as GameObject;
                 canSuperShoot = false;
-                //SuperShotClone.GetComponent<GiveDamage>().thisPlayer = thisPlayer;
-                SuperShot.GetComponentInChildren<GiveDamage>().thisPlayer = thisPlayer;
+                SuperShotClone.GetComponent<GiveDamage>().thisPlayer = thisPlayer;
+                //SuperShot.GetComponentInChildren<GiveDamage>().thisPlayer = thisPlayer;
                 SuperShotClone.transform.rotation = gameObject.transform.rotation;
+                SuperShotOn = true;
             }
 
 
