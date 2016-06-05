@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
     //Health
     public int maxPlayerHealth;
     public float playerHealth;
+    public GameObject playerLife1;
+    public GameObject playerLife2;
+    public GameObject playerLife3;
+
     public GameObject deathParticles;
     public GameObject deathParticlesJuice;
     public int damageToGet;
@@ -51,6 +55,7 @@ public class PlayerController : MonoBehaviour
     //Super Shot
     public GameObject SuperShot;
     public GameObject SuperShotClone;
+    public GameObject pickupInShip;
 
     public bool canSuperShoot;
     public bool SuperShotOn;
@@ -104,6 +109,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        if (canSuperShoot)
+        {
+            pickupInShip.SetActive(true);
+        } else
+        {
+            pickupInShip.SetActive(false);
+        }
 
         //Destroy Super Shot
         if (SuperShotOn)
@@ -172,6 +185,28 @@ public class PlayerController : MonoBehaviour
         
 
         //Health
+        if (playerHealth == 3)
+        {
+            playerLife1.SetActive(true);
+            playerLife2.SetActive(true);
+            playerLife3.SetActive(true);
+        }  if (playerHealth == 2) {
+                        
+                playerLife1.SetActive(true);
+                playerLife2.SetActive(true);
+                playerLife3.SetActive(false);
+            }  if (playerHealth == 1)
+            {
+
+                
+                    playerLife1.SetActive(true);
+                    playerLife2.SetActive(false);
+                    playerLife3.SetActive(false);
+                }
+
+
+
+
         if (dead)
         {
             
@@ -303,9 +338,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log(playerKillingThisPlayer.name + " score: " + playerKillingThisPlayer.GetComponent<PlayerController>().playerScore);
 
 
-        //gameObject.SetActive(false);
-        thisPlayer.GetComponent<Collider>().enabled = false;
-        rend = shipModel.GetComponent<Renderer>();
-        rend.enabled = false;
+        gameObject.SetActive(false);
+        //thisPlayer.GetComponent<Collider>().enabled = false;
+        //rend = shipModel.GetComponent<Renderer>();
+        //rend.enabled = false;
     }
 }

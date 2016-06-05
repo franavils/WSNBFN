@@ -12,6 +12,8 @@ public class HealthManager : MonoBehaviour {
     public Image healthSliderP1;
     public Image healthSliderP2;
 
+       
+
     //Shield
     public Image shieldSliderP1;
     public Image shieldSliderP2;
@@ -80,6 +82,9 @@ public class HealthManager : MonoBehaviour {
 
         shieldSliderP2.rectTransform.anchorMin = viewportPointPlayer2;
         shieldSliderP2.rectTransform.anchorMax = viewportPointPlayer2;
+
+        
+
 
 
 
