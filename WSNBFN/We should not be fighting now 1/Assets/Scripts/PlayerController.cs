@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(SuperShotClone);
                 SuperShotOn = false;
+                SuperShotCurrentLifeTime = 0;
             }
         }
 
