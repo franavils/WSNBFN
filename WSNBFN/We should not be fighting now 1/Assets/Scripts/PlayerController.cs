@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
     public Renderer rend;
     public GameObject shipModel;
 
+
+
     bool dead = false;
 
 
@@ -87,7 +89,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
-
+        
         currentShield = shieldedMax;
 
 

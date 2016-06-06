@@ -12,6 +12,8 @@ public class BulletScript : MonoBehaviour
     float bulletTimeCounter;
     public float timeToDestroy;
 
+    public bool teleported = false;
+
     // Use this for initialization
     void Start()
     {

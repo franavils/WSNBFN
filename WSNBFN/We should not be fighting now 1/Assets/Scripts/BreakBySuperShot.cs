@@ -4,6 +4,7 @@ using System.Collections;
 public class BreakBySuperShot : MonoBehaviour {
 
     public GameObject BreakableParticles;
+    public GameObject Brother;
 
     // Use this for initialization
     void Start () {
@@ -28,6 +29,7 @@ public class BreakBySuperShot : MonoBehaviour {
 
             Instantiate(BreakableParticles, instantiateParticles, gameObject.transform.rotation);
             Destroy(gameObject);
+            Destroy(Brother);
            
             
 
