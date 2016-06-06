@@ -47,7 +47,7 @@ public class GiveDamage : MonoBehaviour {
         
         if (other.tag == "Player" && other.gameObject != thisPlayer)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
             other.GetComponent<PlayerController>().loseHealth(damageToGive);
             other.GetComponent<PlayerController>().lastPlayerHittingThisPlayer = thisPlayer;
             FindObjectOfType<Camera>().GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
