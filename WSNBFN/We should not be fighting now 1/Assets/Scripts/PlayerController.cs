@@ -9,6 +9,15 @@ public class PlayerController : MonoBehaviour
     public bool teleported = false;
     public bool outOfTeleporter = true;
 
+    //Stunned
+    public bool stunned = false;
+    public float stunnedDuration;
+    float _stunnedTime;
+    public float StunnedShakeAmount;
+    public float RotationShakeAmount;
+    public GameObject StunnedParticles;
+    
+
     //Shooting
     public GameObject bullet;
     public float shootDelay = 0.1f;
@@ -111,6 +120,57 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Vector3 shootDirection = new Vector3(Input.GetAxis(rightStickHorizontal), Input.GetAxis(rightStickVertical), 0);
+        //Stun
+        if (stunned)
+        {
+            _stunnedTime += Time.deltaTime;
+
+            if (_stunnedTime >= stunnedDuration)
+            {
+                stunned = false;
+                _stunnedTime = 0;
+            }
+            StunnedParticles.SetActive(true);
+            Quaternion StunnedParticlesRotationInitial = StunnedParticles.transform.rotation;
+
+            Vector3 originalPlayerPosition = transform.position;
+            Quaternion originalPlayerRotation = transform.rotation;
+            float shakeAmountX = Random.Range(-1.0f, 1.0f) * StunnedShakeAmount;
+            float shakeAmountY = Random.Range(-1.0f, 1.0f) * StunnedShakeAmount;
+            float shakeAmountZ = Random.Range(-1.0f, 1.0f) * StunnedShakeAmount;
+
+            float rotationAmountZ = Random.Range(-1.0f, 1.0f) * RotationShakeAmount;
+
+
+            originalPlayerPosition.x += shakeAmountX;
+            originalPlayerPosition.y += shakeAmountY;
+            originalPlayerPosition.z = 0f;
+
+            originalPlayerRotation.x += 0;
+            originalPlayerRotation.y += 0;
+            originalPlayerRotation.z += rotationAmountZ;
+
+            transform.position = originalPlayerPosition;
+            transform.rotation = originalPlayerRotation;
+            StunnedParticles.transform.rotation = StunnedParticlesRotationInitial;
+            if (canShoot)
+            {
+                float randomNumberZ = Random.Range(-stray, stray);
+
+                bullet.GetComponent<GiveDamage>().thisPlayer = thisPlayer;
+                GameObject bulletClone = Instantiate(bullet, thisPlayer.transform.position, thisPlayer.transform.rotation) as GameObject;
+                bulletClone.transform.Rotate(0.0f, 0.0f, randomNumberZ);
+
+
+
+                canShoot = false;
+                Invoke("ResetShot", shootDelay);
+            }
+        } else
+        {
+            StunnedParticles.SetActive(false);
+        }
 
         if (canSuperShoot)
         {
@@ -225,7 +285,7 @@ public class PlayerController : MonoBehaviour
         
         
         //Twin stick shooting and rotating
-        Vector3 shootDirection = new Vector3(Input.GetAxis(rightStickHorizontal), Input.GetAxis(rightStickVertical), 0);
+        
         if (shootDirection.sqrMagnitude > 0.1f)
         {
            
@@ -258,7 +318,7 @@ public class PlayerController : MonoBehaviour
             {
                 SuperShotClone = Instantiate(SuperShot, thisPlayer.transform.position, thisPlayer.transform.rotation) as GameObject;
                 canSuperShoot = false;
-                SuperShotClone.GetComponent<GiveDamage>().thisPlayer = thisPlayer;
+                SuperShotClone.GetComponentInChildren<SuperShot>().thisPlayer = thisPlayer;
                 //SuperShot.GetComponentInChildren<GiveDamage>().thisPlayer = thisPlayer;
                 SuperShotClone.transform.rotation = gameObject.transform.rotation;
                 SuperShotOn = true;
@@ -274,15 +334,23 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Stun
+        if (stunned)
+        {
+            return;
+        } else
+        {
+            //Moving using force
+            float moveHorizontal = Input.GetAxis(leftStickHorizontal);
 
-        //Moving using force
-        float moveHorizontal = Input.GetAxis(leftStickHorizontal);
-
-        float moveVertical = Input.GetAxis(leftStickVertical);
+            float moveVertical = Input.GetAxis(leftStickVertical);
 
 
 
-        rb.AddForce(moveHorizontal * speed, moveVertical * speed, 0);
+            rb.AddForce(moveHorizontal * speed, moveVertical * speed, 0);
+        }
+
+        
 
 
         
