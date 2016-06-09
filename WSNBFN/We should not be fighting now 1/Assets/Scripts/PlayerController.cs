@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     //Stunned
     public bool stunned = false;
     public float stunnedDuration;
-    float _stunnedTime;
+    public float _stunnedTime;
     public float StunnedShakeAmount;
     public float RotationShakeAmount;
     public GameObject StunnedParticles;
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     //Shooting
     public GameObject bullet;
+    float originalShootDelay;
     public float shootDelay = 0.1f;
     private bool canShoot = true;
     public Color bulletColour;
@@ -98,7 +99,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
-        
+        originalShootDelay = shootDelay;
         currentShield = shieldedMax;
 
 
@@ -120,17 +121,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Vector3 shootDirection = new Vector3(Input.GetAxis(rightStickHorizontal), Input.GetAxis(rightStickVertical), 0);
+        
         //Stun
         if (stunned)
         {
+            Debug.Log("Hola");
             _stunnedTime += Time.deltaTime;
 
             if (_stunnedTime >= stunnedDuration)
             {
-                stunned = false;
+                StunnedParticles.SetActive(false);
+                shootDelay = originalShootDelay;
                 _stunnedTime = 0;
+                stunned = false;
+                return;
+                
             }
+
+            shootDelay = originalShootDelay * 4;
             StunnedParticles.SetActive(true);
             Quaternion StunnedParticlesRotationInitial = StunnedParticles.transform.rotation;
 
@@ -138,7 +146,7 @@ public class PlayerController : MonoBehaviour
             Quaternion originalPlayerRotation = transform.rotation;
             float shakeAmountX = Random.Range(-1.0f, 1.0f) * StunnedShakeAmount;
             float shakeAmountY = Random.Range(-1.0f, 1.0f) * StunnedShakeAmount;
-            float shakeAmountZ = Random.Range(-1.0f, 1.0f) * StunnedShakeAmount;
+
 
             float rotationAmountZ = Random.Range(-1.0f, 1.0f) * RotationShakeAmount;
 
@@ -151,8 +159,8 @@ public class PlayerController : MonoBehaviour
             originalPlayerRotation.y += 0;
             originalPlayerRotation.z += rotationAmountZ;
 
-            transform.position = originalPlayerPosition;
-            transform.rotation = originalPlayerRotation;
+            transform.localPosition = originalPlayerPosition;
+            transform.localRotation = originalPlayerRotation;
             StunnedParticles.transform.rotation = StunnedParticlesRotationInitial;
             if (canShoot)
             {
@@ -167,10 +175,16 @@ public class PlayerController : MonoBehaviour
                 canShoot = false;
                 Invoke("ResetShot", shootDelay);
             }
-        } else
-        {
-            StunnedParticles.SetActive(false);
+
+            
         }
+        if (stunned == false)
+        {
+
+
+
+            Debug.Log("Hi");   
+        
 
         if (canSuperShoot)
         {
@@ -281,12 +295,13 @@ public class PlayerController : MonoBehaviour
 
             death();
         }
-        
-        
-        
-        //Twin stick shooting and rotating
-        
-        if (shootDirection.sqrMagnitude > 0.1f)
+
+
+
+            //Twin stick shooting and rotating
+            Vector3 shootDirection = new Vector3(Input.GetAxis(rightStickHorizontal), Input.GetAxis(rightStickVertical), 0);
+
+            if (shootDirection.sqrMagnitude > 0.1f)
         {
            
             Vector2 stickDir = new Vector2(Input.GetAxis(rightStickHorizontal), Input.GetAxis(rightStickVertical));
@@ -327,20 +342,23 @@ public class PlayerController : MonoBehaviour
 
 
         }
-        
+
+        }
 
 
     }
 
     void FixedUpdate()
     {
-        //Stun
-        if (stunned)
+        /*if (stunned)
         {
+            Debug.Log("I can't move");
             return;
-        } else
-        {
+        }
+        else if (stunned == false)
+        {*/
             //Moving using force
+            Debug.Log("Moving again");
             float moveHorizontal = Input.GetAxis(leftStickHorizontal);
 
             float moveVertical = Input.GetAxis(leftStickVertical);
@@ -348,7 +366,7 @@ public class PlayerController : MonoBehaviour
 
 
             rb.AddForce(moveHorizontal * speed, moveVertical * speed, 0);
-        }
+        //}
 
         
 

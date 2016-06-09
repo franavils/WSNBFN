@@ -94,21 +94,17 @@ public class HealthManager : MonoBehaviour {
         if (player1Health <= 0 || player2Health <= 0)
             {
             deactivateUI();
+            //mainCamera.GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
 
-            if (shaked)
-            {
-                //Debug.Log("Naomi Waaats?");
+            
+                
                 timeToReload += Time.deltaTime;
                 if (timeToReload > 5)
                 {
                     SceneManager.LoadScene(sceneToLoad);
                 }
-            }
-            else
-            {
-                //Debug.Log("Muévelo, muévelo");
-                screenShake();
-            }
+            
+            
 
                 
             
@@ -118,7 +114,7 @@ public class HealthManager : MonoBehaviour {
     void screenShake()
     {
         //Debug.Log("Calling shake");
-        //mainCamera.GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
+        
         shaked = true;
         
 
