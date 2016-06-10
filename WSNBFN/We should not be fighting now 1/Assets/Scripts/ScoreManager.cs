@@ -6,6 +6,7 @@ public class ScoreManager : MonoBehaviour {
     // Use this for initialization
     public GameObject player1;
     public GameObject player2;
+    public AudioSource SoundTrack;
 
     public int player1Score;
     public int player2Score;
@@ -13,6 +14,7 @@ public class ScoreManager : MonoBehaviour {
     void Awake ()
     {
         DontDestroyOnLoad(gameObject);
+        
         
 
 
@@ -24,6 +26,12 @@ public class ScoreManager : MonoBehaviour {
 
         player1.GetComponent<PlayerController>().playerScore = player1Score;
         player2.GetComponent<PlayerController>().playerScore = player2Score;
+
+        if (SoundTrack.isPlaying)
+        {
+            return;
+        } else
+        SoundTrack.Play();
     }
 	
 	// Update is called once per frame

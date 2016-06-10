@@ -178,9 +178,7 @@ public class PlayerController : MonoBehaviour
 
             
         }
-        if (stunned == false)
-        {
-
+        
 
 
             Debug.Log("Hi");   
@@ -327,23 +325,24 @@ public class PlayerController : MonoBehaviour
                 canShoot = false;
                 Invoke("ResetShot", shootDelay);
             }
-            //Super Shot
             
-            if (canSuperShoot && Input.GetButton(rightShoulder))
-            {
-                SuperShotClone = Instantiate(SuperShot, thisPlayer.transform.position, thisPlayer.transform.rotation) as GameObject;
-                canSuperShoot = false;
-                SuperShotClone.GetComponentInChildren<SuperShot>().thisPlayer = thisPlayer;
-                //SuperShot.GetComponentInChildren<GiveDamage>().thisPlayer = thisPlayer;
-                SuperShotClone.transform.rotation = gameObject.transform.rotation;
-                SuperShotOn = true;
-            }
 
 
 
         }
+        //Super Shot
 
+        if (canSuperShoot && Input.GetButton(rightShoulder))
+        {
+            SuperShotClone = Instantiate(SuperShot, thisPlayer.transform.position, thisPlayer.transform.rotation) as GameObject;
+            canSuperShoot = false;
+            SuperShotClone.GetComponentInChildren<SuperShot>().thisPlayer = thisPlayer;
+            //SuperShot.GetComponentInChildren<GiveDamage>().thisPlayer = thisPlayer;
+            SuperShotClone.transform.rotation = gameObject.transform.rotation;
+            SuperShotOn = true;
         }
+
+
 
 
     }
