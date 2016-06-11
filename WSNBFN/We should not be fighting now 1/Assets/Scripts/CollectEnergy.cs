@@ -19,8 +19,18 @@ public class CollectEnergy : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            Destroy(gameObject);
-            other.GetComponent<PlayerController>().canSuperShoot = true;
+            if (other.GetComponent<PlayerController>().canSuperShoot == true)
+            {
+                return;
+            }
+
+            if (other.GetComponent<PlayerController>().canSuperShoot == false)
+            {
+
+
+                Destroy(gameObject);
+                other.GetComponent<PlayerController>().canSuperShoot = true;
+            }
         }
     }
 }

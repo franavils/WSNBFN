@@ -13,9 +13,12 @@ public class GiveDamage : MonoBehaviour {
     public GameObject particlesHitWall;
     public GameObject particlesHitPlayer;
     private GameObject cloneParticlesHitPlayer;
+
+    public float RecoilFromBullet;
     
 
     public Transform originalObject;
+    Vector3 CurrentDirection;
 
     public Rigidbody rb;
 
@@ -47,10 +50,14 @@ public class GiveDamage : MonoBehaviour {
         
         if (other.tag == "Player" && other.gameObject != thisPlayer)
         {
+
+            CurrentDirection = rb.velocity;
             Destroy(gameObject);
+            other.GetComponent<Rigidbody>().AddForce(CurrentDirection * RecoilFromBullet);
             other.GetComponent<PlayerController>().loseHealth(damageToGive);
             other.GetComponent<PlayerController>().lastPlayerHittingThisPlayer = thisPlayer;
             FindObjectOfType<Camera>().GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
+           
             cloneParticlesHitPlayer = Instantiate(particlesHitPlayer, other.transform.position, other.transform.rotation) as GameObject;
             cloneParticlesHitPlayer.transform.parent = other.transform;
             

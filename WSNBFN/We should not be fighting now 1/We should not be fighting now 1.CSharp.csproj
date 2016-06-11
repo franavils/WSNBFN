@@ -72,6 +72,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Ready.cs" />
     <Compile Include="Assets\Scripts\BreakBySuperShot.cs" />
     <Compile Include="Assets\Scripts\BreakableBrick.cs" />
     <Compile Include="Assets\Scripts\BulletScript.cs" />
@@ -87,9 +88,9 @@
     <Compile Include="Assets\Scripts\ScreenShake.cs" />
     <Compile Include="Assets\Scripts\ShieldScript.cs" />
     <Compile Include="Assets\Scripts\SuperShot.cs" />
+    <Compile Include="Assets\Scripts\Teleporting.cs" />
+    <Compile Include="Assets\Scripts\TeleportingPreparing.cs" />
     <Compile Include="Assets\Scripts\TextureTiler.cs" />
-    <Compile Include="Assets\Teleporting.cs" />
-    <Compile Include="Assets\TeleportingPreparing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\KY_effects\MagicEffectsPackFree\ReadMe.txt" />
