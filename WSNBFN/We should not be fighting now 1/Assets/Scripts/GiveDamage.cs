@@ -53,17 +53,26 @@ public class GiveDamage : MonoBehaviour {
 
             CurrentDirection = rb.velocity;
             Destroy(gameObject);
-            other.GetComponent<Rigidbody>().AddForce(CurrentDirection * RecoilFromBullet);
+            
             other.GetComponent<PlayerController>().loseHealth(damageToGive);
             other.GetComponent<PlayerController>().lastPlayerHittingThisPlayer = thisPlayer;
             FindObjectOfType<Camera>().GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
            
             cloneParticlesHitPlayer = Instantiate(particlesHitPlayer, other.transform.position, other.transform.rotation) as GameObject;
             cloneParticlesHitPlayer.transform.parent = other.transform;
-            
-            
-            
-                       
+
+
+            if (other.GetComponent<PlayerController>().playerHealth == 0)
+            {
+                other.GetComponent<Rigidbody>().drag = 0;
+                other.GetComponent<Rigidbody>().AddForce(CurrentDirection * RecoilFromBullet);
+            } else
+
+            other.GetComponent<Rigidbody>().AddForce(CurrentDirection * RecoilFromBullet);
+
+
+
+
         }
         
         

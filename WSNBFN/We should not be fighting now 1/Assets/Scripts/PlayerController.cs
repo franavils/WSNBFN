@@ -46,10 +46,17 @@ public class PlayerController : MonoBehaviour
     public GameObject playerLife1;
     public GameObject playerLife2;
     public GameObject playerLife3;
+    public int damageToGet;
 
+    //Death
     public GameObject deathParticles;
     public GameObject deathParticlesJuice;
-    public int damageToGet;
+    public AudioSource BeforeDeath;
+    public float DeathSpin;
+    public float DeathPush;
+    public float CurrentTimeToDie;
+    public float TimeToDie;
+    
 
     //Special:
     //Shield
@@ -125,7 +132,7 @@ public class PlayerController : MonoBehaviour
         //Stun
         if (stunned)
         {
-            Debug.Log("Hola");
+            //Debug.Log("Hola");
             _stunnedTime += Time.deltaTime;
 
             if (_stunnedTime >= stunnedDuration)
@@ -181,7 +188,7 @@ public class PlayerController : MonoBehaviour
         
 
 
-            Debug.Log("Hi");   
+              
         
 
         if (canSuperShoot)
@@ -277,10 +284,18 @@ public class PlayerController : MonoBehaviour
                     playerLife2.SetActive(false);
                     playerLife3.SetActive(false);
                 }
+        if (playerHealth == 0)
+        {
+
+
+            playerLife1.SetActive(false);
+            playerLife2.SetActive(false);
+            playerLife3.SetActive(false);
+        }
 
 
 
-
+        //Death 
         if (dead)
         {
             
@@ -290,8 +305,19 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+             
+            CurrentTimeToDie += Time.deltaTime;
 
-            death();
+            BeforeDeath.pl
+            transform.Rotate(0, 0, DeathSpin);
+            playerKillingThisPlayer = lastPlayerHittingThisPlayer;
+            playerKillingThisPlayer.GetComponent<PlayerController>().playerScore += 1;
+            StunnedParticles.SetActive(true);
+
+                if (CurrentTimeToDie >= TimeToDie)
+                {
+                    death();
+                }
         }
 
 
@@ -349,15 +375,15 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        /*if (stunned)
+        if (stunned)
         {
             Debug.Log("I can't move");
             return;
         }
         else if (stunned == false)
-        {*/
+        {
             //Moving using force
-            Debug.Log("Moving again");
+            //Debug.Log("Moving again");
             float moveHorizontal = Input.GetAxis(leftStickHorizontal);
 
             float moveVertical = Input.GetAxis(leftStickVertical);
@@ -365,7 +391,7 @@ public class PlayerController : MonoBehaviour
 
 
             rb.AddForce(moveHorizontal * speed, moveVertical * speed, 0);
-        //}
+        }
 
         
 
@@ -384,7 +410,7 @@ public class PlayerController : MonoBehaviour
     public void Shield()
     {
         cloneShield = Instantiate(shield, thisPlayer.transform.position,thisPlayer.transform.rotation) as GameObject;
-        Debug.Log("Shield!");
+        //Debug.Log("Shield!");
         cloneShield.transform.parent = thisPlayer.transform;
         shielded = true;
 
@@ -415,19 +441,19 @@ public class PlayerController : MonoBehaviour
     }
     public void death()
     {
-        dead = true;
 
-        playerKillingThisPlayer = lastPlayerHittingThisPlayer;
-        playerKillingThisPlayer.GetComponent<PlayerController>().playerScore +=1;
+
+        dead = true;
         Instantiate(deathParticlesJuice, thisPlayer.transform.position,thisPlayer.transform.rotation);
         Instantiate(deathParticles, transform.position, transform.rotation);
 
-        Debug.Log(playerKillingThisPlayer.name + " score: " + playerKillingThisPlayer.GetComponent<PlayerController>().playerScore);
+        //Debug.Log(playerKillingThisPlayer.name + " score: " + playerKillingThisPlayer.GetComponent<PlayerController>().playerScore);
 
 
         gameObject.SetActive(false);
-        //thisPlayer.GetComponent<Collider>().enabled = false;
-        //rend = shipModel.GetComponent<Renderer>();
-        //rend.enabled = false;
+            //thisPlayer.GetComponent<Collider>().enabled = false;
+            //rend = shipModel.GetComponent<Renderer>();
+            //rend.enabled = false;
+        
     }
 }

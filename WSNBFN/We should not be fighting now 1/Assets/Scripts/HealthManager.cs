@@ -27,7 +27,8 @@ public class HealthManager : MonoBehaviour {
     public float player2Shield;
     public float maxShield;
 
-
+    //Load Scene
+    float currentTimeToReload;
     public float timeToReload;
     public string sceneToLoad;
 
@@ -98,8 +99,8 @@ public class HealthManager : MonoBehaviour {
 
             
                 
-                timeToReload += Time.deltaTime;
-                if (timeToReload > 5)
+                currentTimeToReload += Time.deltaTime;
+                if (currentTimeToReload > timeToReload)
                 {
                     SceneManager.LoadScene(sceneToLoad);
                 }

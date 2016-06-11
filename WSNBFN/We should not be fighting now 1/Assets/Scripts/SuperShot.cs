@@ -32,7 +32,7 @@ public class SuperShot : MonoBehaviour {
     }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log (other.gameObject.name);
+        //Debug.Log (other.gameObject.name);
 
         
 
