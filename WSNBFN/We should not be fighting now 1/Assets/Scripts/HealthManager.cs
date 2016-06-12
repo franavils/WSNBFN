@@ -12,6 +12,8 @@ public class HealthManager : MonoBehaviour {
     public Image healthSliderP1;
     public Image healthSliderP2;
 
+    //Slow Motion
+    public float Matrix;
        
 
     //Shield
@@ -41,8 +43,8 @@ public class HealthManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
         
+
     }
 	
 	// Update is called once per frame
@@ -84,7 +86,7 @@ public class HealthManager : MonoBehaviour {
         shieldSliderP2.rectTransform.anchorMin = viewportPointPlayer2;
         shieldSliderP2.rectTransform.anchorMax = viewportPointPlayer2;
 
-        
+
 
 
 
@@ -93,23 +95,27 @@ public class HealthManager : MonoBehaviour {
 
 
         if (player1Health <= 0 || player2Health <= 0)
-            {
+        {
             deactivateUI();
+            currentTimeToReload += Time.deltaTime;
+            
             //mainCamera.GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
 
-            
-                
-                currentTimeToReload += Time.deltaTime;
-                if (currentTimeToReload > timeToReload)
-                {
-                    SceneManager.LoadScene(sceneToLoad);
-                }
-            
-            
 
-                
+
             
+            if (currentTimeToReload > timeToReload)
+            {
+                SceneManager.LoadScene(sceneToLoad);
+            }
+
+
+
+
+
         }
+        
+            
     }
 
     void screenShake()

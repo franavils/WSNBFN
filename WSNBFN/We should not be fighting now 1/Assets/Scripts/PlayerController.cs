@@ -308,7 +308,7 @@ public class PlayerController : MonoBehaviour
              
             CurrentTimeToDie += Time.deltaTime;
 
-            BeforeDeath.pl
+            
             transform.Rotate(0, 0, DeathSpin);
             playerKillingThisPlayer = lastPlayerHittingThisPlayer;
             playerKillingThisPlayer.GetComponent<PlayerController>().playerScore += 1;

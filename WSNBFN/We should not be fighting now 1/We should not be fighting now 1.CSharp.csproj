@@ -72,6 +72,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LoadGameFromIntro.cs" />
     <Compile Include="Assets\Ready.cs" />
     <Compile Include="Assets\Scripts\BreakBySuperShot.cs" />
     <Compile Include="Assets\Scripts\BreakableBrick.cs" />
