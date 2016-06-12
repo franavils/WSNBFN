@@ -30,6 +30,7 @@ public class HealthManager : MonoBehaviour {
     public float maxShield;
 
     //Load Scene
+    public bool SceneOver = false;
     float currentTimeToReload;
     public float timeToReload;
     public string sceneToLoad;
@@ -43,8 +44,8 @@ public class HealthManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        
 
+        SceneOver = false;
     }
 	
 	// Update is called once per frame
@@ -57,23 +58,25 @@ public class HealthManager : MonoBehaviour {
 
         maxShield = player1.GetComponent<PlayerController>().shieldedMax;
 
-        player1HealthText.text = "Player 1: " + player1Health.ToString();
-        player2HealthText.text = "Player 2: " + player2Health.ToString();
+        //player1HealthText.text = "Player 1: " + player1Health.ToString();
+        //player2HealthText.text = "Player 2: " + player2Health.ToString();
 
 
-        healthSliderP1.fillAmount = player1Health / 3.0f;
-        healthSliderP2.fillAmount = player2Health / 3.0f;
+        //healthSliderP1.fillAmount = player1Health / 3.0f;
+        //healthSliderP2.fillAmount = player2Health / 3.0f;
 
-        shieldSliderP1.fillAmount = player1Shield / maxShield;
-        shieldSliderP2.fillAmount = player2Shield / maxShield;
+        //shieldSliderP1.fillAmount = player1Shield / maxShield;
+        //shieldSliderP2.fillAmount = player2Shield / maxShield;
 
-
+        /*
         Vector2 posPlayer1 = player1.transform.position;
         Vector2 posPlayer2 = player2.transform.position;
         Vector2 viewportPointPlayer1 = Camera.main.WorldToViewportPoint(posPlayer1);
         Vector2 viewportPointPlayer2 = Camera.main.WorldToViewportPoint(posPlayer2);
+        */
 
         //Set bars to player position
+        /*
         healthSliderP1.rectTransform.anchorMin = viewportPointPlayer1;
         healthSliderP1.rectTransform.anchorMax = viewportPointPlayer1;
 
@@ -86,7 +89,7 @@ public class HealthManager : MonoBehaviour {
         shieldSliderP2.rectTransform.anchorMin = viewportPointPlayer2;
         shieldSliderP2.rectTransform.anchorMax = viewportPointPlayer2;
 
-
+    */
 
 
 
@@ -98,6 +101,7 @@ public class HealthManager : MonoBehaviour {
         {
             deactivateUI();
             currentTimeToReload += Time.deltaTime;
+            SceneOver = true;
             
             //mainCamera.GetComponent<ScreenShake>().ShakeScreen(shakeAmount, lenght);
 
@@ -128,11 +132,13 @@ public class HealthManager : MonoBehaviour {
     }
     void deactivateUI()
     {
+        /*
         healthSliderP1.fillAmount = 0;
         healthSliderP2.fillAmount = 0;
 
         shieldSliderP1.fillAmount = 0;
         shieldSliderP2.fillAmount = 0;
+        */
     }
 
 

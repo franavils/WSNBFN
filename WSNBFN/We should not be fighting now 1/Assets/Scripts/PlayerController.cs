@@ -305,13 +305,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-             
+            playerKillingThisPlayer = lastPlayerHittingThisPlayer;
+            //playerKillingThisPlayer.GetComponent<PlayerController>().playerScore += 1;
+
             CurrentTimeToDie += Time.deltaTime;
 
             
             transform.Rotate(0, 0, DeathSpin);
-            playerKillingThisPlayer = lastPlayerHittingThisPlayer;
-            playerKillingThisPlayer.GetComponent<PlayerController>().playerScore += 1;
+            
             StunnedParticles.SetActive(true);
 
                 if (CurrentTimeToDie >= TimeToDie)
@@ -447,7 +448,7 @@ public class PlayerController : MonoBehaviour
         Instantiate(deathParticlesJuice, thisPlayer.transform.position,thisPlayer.transform.rotation);
         Instantiate(deathParticles, transform.position, transform.rotation);
 
-        //Debug.Log(playerKillingThisPlayer.name + " score: " + playerKillingThisPlayer.GetComponent<PlayerController>().playerScore);
+        Debug.Log(playerKillingThisPlayer.name + " score: " + playerKillingThisPlayer.GetComponent<PlayerController>().playerScore);
 
 
         gameObject.SetActive(false);

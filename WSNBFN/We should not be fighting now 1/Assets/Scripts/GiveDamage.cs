@@ -64,6 +64,7 @@ public class GiveDamage : MonoBehaviour {
 
             if (other.GetComponent<PlayerController>().playerHealth == 0)
             {
+                thisPlayer.GetComponent<PlayerController>().playerScore += 1;
                 other.GetComponent<Rigidbody>().drag = 0;
                 other.GetComponent<Rigidbody>().AddForce(CurrentDirection * RecoilFromBullet);
             } else
