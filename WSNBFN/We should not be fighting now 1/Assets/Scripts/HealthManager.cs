@@ -34,17 +34,24 @@ public class HealthManager : MonoBehaviour {
     float currentTimeToReload;
     public float timeToReload;
     public string sceneToLoad;
+    
+    //GameOver
+    public bool GameOver;
+    float currentTimeToRematch;
+    public float timeToReatch;
 
     //Death ScreenShake
     public float shakeAmount;
     public float lenght;
     bool shaked = false;
 
+    public GameObject ScoreManager;
+
     public GameObject mainCamera;
 
     // Use this for initialization
     void Start () {
-
+        ScoreManager = GameObject.Find("ScoreManager");
         SceneOver = false;
     }
 	
@@ -57,6 +64,14 @@ public class HealthManager : MonoBehaviour {
         player2Shield = player2.GetComponent<PlayerController>().currentShield;
 
         maxShield = player1.GetComponent<PlayerController>().shieldedMax;
+
+        //Game over
+
+        if(SceneManager.GetActiveScene().name != ("Intro"))
+        {
+            GameOver = ScoreManager.GetComponent<ScoreManager>().GameOver;
+        }
+        
 
         //player1HealthText.text = "Player 1: " + player1Health.ToString();
         //player2HealthText.text = "Player 2: " + player2Health.ToString();
@@ -99,7 +114,22 @@ public class HealthManager : MonoBehaviour {
 
         if (player1Health <= 0 || player2Health <= 0)
         {
+
             deactivateUI();
+
+            if (GameOver)
+            {
+                currentTimeToRematch += Time.deltaTime;
+
+                if (currentTimeToRematch >= timeToReatch)
+                {
+                    SceneManager.LoadScene("Intro");
+                }
+            } 
+            if (GameOver == false)
+            {
+
+            
             currentTimeToReload += Time.deltaTime;
             SceneOver = true;
             
@@ -107,7 +137,7 @@ public class HealthManager : MonoBehaviour {
 
 
 
-            
+
             if (currentTimeToReload > timeToReload)
             {
                 SceneManager.LoadScene(sceneToLoad);
@@ -116,7 +146,7 @@ public class HealthManager : MonoBehaviour {
 
 
 
-
+            }
         }
         
             

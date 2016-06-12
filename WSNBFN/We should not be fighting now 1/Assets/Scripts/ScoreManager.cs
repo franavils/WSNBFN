@@ -27,15 +27,27 @@ public class ScoreManager : MonoBehaviour {
 
     public GameObject LevelManager;
 
+    //Game Over
+    public bool GameOver;
+
     public bool SceneOver;
     public float WaitForUI;
     public float CurrentWaitForUI;
 
     void Awake ()
     {
-        DontDestroyOnLoad(gameObject);
+        if (GameOver)
+        {
+            Debug.Log("Hola");
+        }
+        if (GameOver == false)
+        {
+            DontDestroyOnLoad(gameObject);
+            LevelManager = GameObject.Find("LevelManager");
+        } 
+        
 
-        LevelManager = GameObject.Find("LevelManager");
+        
 
 
     }
@@ -100,6 +112,7 @@ if (SceneOver == false)
                     P1Diamond2.SetActive(true);
                     P1Diamond3.SetActive(true);
                     P1Diamond4.SetActive(true);
+                    GameOver = true;
                 }
                 if (player2Score == 0)
                 {
@@ -126,6 +139,7 @@ if (SceneOver == false)
                     P2Diamond2.SetActive(true);
                     P2Diamond3.SetActive(true);
                     P2Diamond4.SetActive(true);
+                    GameOver = true;
                 }
 
             }
@@ -134,9 +148,16 @@ if (SceneOver == false)
 
     void OnLevelWasLoaded()
     {
+        ScoreManager[] ScoreManagersList = FindObjectsOfType(typeof(ScoreManager)) as ScoreManager[];
+         if (ScoreManagersList.Length > 1)
+        {
+            Destroy(ScoreManagersList[0].gameObject);
+        }
+        Scene thisScene = SceneManager.GetActiveScene();
+        
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
-        Scene thisScene = SceneManager.GetActiveScene();
+        
 
         SceneOver = false;
         CurrentWaitForUI = 0;
